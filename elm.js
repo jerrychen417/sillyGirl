@@ -130,12 +130,19 @@ function main(){
             s.reply("请重新提交饿了么ck")
     }
     else{
-        let ck=s.param(1)
-        if(ck.indexOf("SID")==-1 || ck.indexOf("cookie2")==-1 || ck.indexOf("USERID")==-1){
+        let ckab1=s.param(1)
+        if(ckab1.indexOf("SID")==-1 || ckab1.indexOf("cookie2")==-1 || ckab1.indexOf("USERID")==-1){
             s.reply("ck有误或者不完整")
             return
         }
         s.recallMessage(s.getMessageId())
+
+        var ck=ckab1.match("SID=.*?;")[0] + ckab1.match("cookie2=.*?;")[0] + ckab1.match("USERID=.*?;")[0]
+
+        if(ckab1.indexOf("UID_")!=-1){
+            ck="wxUid=UID_"+ckab1.split("UID_")[1].substr(0,28) + ";" + ck
+        }
+
 
         let e_uid=ck.match(/(?<=USERID=)\d+/)[0]
         let env=envs.find(env=>env.name==EnvName&&env.value.match(/(?<=USERID=)\d+/)==e_uid)
