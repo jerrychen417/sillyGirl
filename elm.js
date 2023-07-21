@@ -18,7 +18,7 @@
 //青龙应用密钥:set elm ql_client_secret AAAAAAAAAA
 
 //饿了么变量名
-const EnvName="elmCookie"
+const EnvName="elmck"
 
 //允许使用本插件的群聊白名单
 const GroupWhiteList=[]
@@ -137,12 +137,11 @@ function main(){
         }
         s.recallMessage(s.getMessageId())
 
-        var ck=ckab1.match("SID=.*?;")[0] + ckab1.match("cookie2=.*?;")[0] + ckab1.match("USERID=.*?;")[0]
+        var ck=ckab1.match("SID=.*?;")[0] + ckab1.match("cookie2=.*?;")[0] + ckab1.match("USERID=.*?;")[0] + ckab1.match("unb=.*?;")[0]
 
         if(ckab1.indexOf("UID_")!=-1){
             ck="wxUid=UID_"+ckab1.split("UID_")[1].substr(0,28) + ";" + ck
         }
-
 
         let e_uid=ck.match(/(?<=USERID=)\d+/)[0]
         let env=envs.find(env=>env.name==EnvName&&env.value.match(/(?<=USERID=)\d+/)==e_uid)
